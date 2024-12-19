@@ -1,0 +1,8 @@
+spring:
+  ai:
+    bedrock:
+      llama:
+        chat:
+          enabled: true
+          options:
+            temperature: 0.8
