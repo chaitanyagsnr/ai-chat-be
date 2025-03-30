@@ -28,7 +28,7 @@ public class LlamaChatController {
     @CrossOrigin(origins = "http://localhost:4200")
     public ChatResponseDto chat(@RequestBody ChatRequestDto chatRequest) throws ExecutionException, InterruptedException {
         Message message = Message.builder()
-                .content(ContentBlock.fromText(chatRequest.getPrompt()))
+                .content(ContentBlock.fromText(chatRequest.prompt()))
                 .role(ConversationRole.USER)
                 .build();
 
@@ -42,10 +42,6 @@ public class LlamaChatController {
 
 
         // Retrieve the generated text from Bedrock's response object.
-        String responseText = response.output().message().content().get(0).text();
-
-        ChatResponseDto responseDto = new ChatResponseDto();
-        responseDto.setResponse(responseText);
-        return responseDto;
+        return new ChatResponseDto(response.output().message().content().get(0).text());
     }
 }
